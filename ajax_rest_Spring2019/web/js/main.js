@@ -1,93 +1,83 @@
-$(document).ready(function () {
+$(function() {
+    var $myorders = $('#orders');
     var $name = $("#name");
     var $drink1 = $("#drink1");
     var $drink2 = $("#drink2");
-    var $color = $("#select_color");
-    var $myOrders = $("#orders");
-    var $ID = $("#idul");
+    var $drcolor = $("#select_color");
+    var $idul = $("#idul");
 
-    $("#add-order").click(function () {
-        var order = {
-            name: $name.val(),
-            drink:{
-                drink1:$($drink1).val(),
-                drink2:$drink2.val()
-            },
-            color: $color.val()
-        };
-        $.ajax({
-            type: "POST",
-            url: "http://rest.learncode.academy/api/baxter1898/assignment2",
-            data: order,
-            success: function (newOrder) {
-                alert("Item added");
-            },
-            error: function () {
-                alert("Error at post method");
-            }
-        })
-    });
 
     $("#get-order").click(function () {
         $.ajax({
             type: "GET",
-            url: "http://rest.learncode.academy/api/baxter1898/assignment2",
+            url: "http://rest.learncode.academy/api/Zeke/drinks1234",
             success: function (orderList) {
+                $myorders.text(null);
+                $idul.text(null);
                 $.each(orderList, function (i, item) {
-                    $myOrders.append("<li> name: " + item.name + ", Drink1: " + item.drink.drink1 + ", Drink2: " + item.drink.drink2 +
-                        ", Color: " + item.color + ", ID: " + item.id + "</li>");
-                })
-            },
-            error: function () {alert("Error at post method");}
+                    $myorders.append("<li> Name:" + item.name + ", Drink1: " + item.drink.drink1 + ", Drink2: " + item.drink.drink2 + ", Color: " + item.dcolor + ", Id: " + item.id + "</li>");
+                    $idul.append(item.id);
+                });
+
+            }
         })
     });
-
-    $("#put-order").click(function () {     //must use ID value
-        var editedOrder = {
+    $("#add-order").click(function () {
+        var order = {
             name: $name.val(),
-            drink:{
-                drink1:$($drink1).val(),
-                drink2:$drink2.val()
+            drink: {
+                drink1: $drink1.val(),
+                drink2: $drink2.val()
             },
-            color: $color.val(),
-            id: $ID.val()
+            dcolor: $drcolor.val()
+        };
+        $.ajax({
+            type: "POST",
+            url: "http://rest.learncode.academy/api/Zeke/drinks1234",
+            data: order,
+            success: function (newOrder) {
+                alert("Item Added")
+            },
+            error: function () {
+                alert("Enter do not blah blah")
+            }
+        })
+    });
+    $("#delete-order").click(function () {
+        var idNumber = $idul.text();
+        $idul.text(null);
+        $myorders.text(null);
+        $.ajax({
+            type: "DELETE",
+            url: "http://rest.learncode.academy/api/Zeke/drinks1234/" + idNumber,
+            success: function (newOrder) {
+                alert("Item Deleted")
+            },
+            error: function () {
+                alert("Error")
+            }
+        })
+    });
+    $("#put-order").click(function () {
+        var idNumber = $idul.text();
+        var order = {
+            name: $name.val(),
+            drink: {
+                drink1: $drink1.val(),
+                drink2: $drink2.val()
+            },
+            dcolor: $drcolor.val()
         };
         $.ajax({
             type: "PUT",
-            url: "http://rest.learncode.academy/api/baxter1898/class3360/" + editedOrder.id,
-            data: JSON.stringify(editedOrder),
-            dataType: "json",
-            success: function () {
-                alert("Item updated")
+            url: "http://rest.learncode.academy/api/Zeke/drinks1234/" + idNumber,
+            data: order,
+            success: function (newOrder) {
+                alert("Item Updated")
             },
             error: function () {
-                alert("Error at put method")
+                alert("Error")
             }
-            //alert
         })
     });
-
-    $("#delete-order").click(function () {
-        var delOrder = {
-            name: $name.val(),
-            drink:{
-                drink1:$($drink1).val(),
-                drink2:$drink2.val()
-            },
-            color: $color.val(),
-            id: $ID.val()
-        };
-        $.ajax({
-            type: "DELETE",
-            url: "http://rest.learncode.academy/api/baxter1898/class360/" + delOrder.id,
-            dataType: "json",
-            data: delOrder,
-            success: function () {
-                alert("Item deleted");
-            },
-            error: function () {
-                alert("Error at delete method");
-            }
-        })
-    })
 });
