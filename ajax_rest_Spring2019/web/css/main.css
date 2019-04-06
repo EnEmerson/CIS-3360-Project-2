@@ -2,3 +2,11 @@ table{
     margin: auto;
     width: 750px;
 }
+
+.cocktailHeader{
+    background-color: coral;
+}
+
+p{
+    text-align: center;
+}

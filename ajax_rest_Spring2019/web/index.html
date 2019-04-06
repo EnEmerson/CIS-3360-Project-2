@@ -2,13 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Cocktail Mixer</title>
     <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
     <table border="1">
-        <tr><td colspan="4"><h2>Drink order:</h2></td></tr>
-        <tr><td colspan="4"><h4>Add drink order:</h4></td></tr>
+        <tr class = "cocktailHeader"><td colspan="4" align = "center">
+            <h2>Cocktail Mixer</h2>
+            <h4>Create your own cocktail!</h4></td>
+        </tr>
         <tr>
             <td colspan="4">
                 <ul id="orders">
@@ -16,11 +18,11 @@
                 </ul>
             </td>
         </tr>
-        <tr><td colspan="4">Name <input type="text" id="name"></td></tr>
-        <tr><td colspan="4">Cocktail</td></tr>
+        <tr><td colspan="4">Name your drink: <input type="text" id="name"></td></tr>
+        <tr><td colspan="4">Choose two spirits to be mixed...</td></tr>
         <tr>
-            <td>Drink1: <input type="text" id="drink1"></td>
-            <td>Drink2: <input type="text" id="drink2"></td>
+            <td>Choose a Liquor: <input type="text" id="drink1"></td>
+            <td>Choose a Liqueur: <input type="text" id="drink2"></td>
             <td colspan="2"> Color:
                 <select id="select_color">
                     <option value="red">Red</option>
@@ -39,6 +41,8 @@
             </td>
         </tr>
     </table>
+
+    <p>Note to user: values are only stored on the JSON server for a brief time. (20 to 60 seconds)</p>
     <script src="js/jquery-3.3.1.js"></script>
     <script src="js/main.js"></script>
 </body>

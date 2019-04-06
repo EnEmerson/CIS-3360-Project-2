@@ -15,14 +15,19 @@ $(function() {
                 $myorders.text(null);
                 $idul.text(null);
                 $.each(orderList, function (i, item) {
-                    $myorders.append("<li> Name:" + item.name + ", Drink1: " + item.drink.drink1 + ", Drink2: " + item.drink.drink2 + ", Color: " + item.dcolor + ", Id: " + item.id + "</li>");
+
+                    $myorders.append("<li> Name: " + item.name + ", Spirit 1: " + item.drink.drink1 + ", Spirit 2: " + item.drink.drink2 + ", Color: " + item.dcolor + ", Drink Id: " + item.id + "</li>");
                     $idul.append(item.id);
                 });
 
+            },
+            error: function(){
+                alert("Error at 'get' function")
             }
         })
     });
     $("#add-order").click(function () {
+
         var order = {
             name: $name.val(),
             drink: {
@@ -31,15 +36,20 @@ $(function() {
             },
             dcolor: $drcolor.val()
         };
+
+        if(order.name === ""){order.name = "undefined"}
+        if(order.drink.drink1 === ""){order.drink.drink1 = "undefined"}
+        if(order.drink.drink2 === ""){order.drink.drink2 = "undefined"}
+
         $.ajax({
             type: "POST",
             url: "http://rest.learncode.academy/api/Zeke/drinks1234",
             data: order,
-            success: function (newOrder) {
-                alert("Item Added")
+            success: function (order) {
+                alert("Item Added: " + order.name.toString())
             },
             error: function () {
-                alert("Enter do not blah blah")
+                alert("Error at 'add' function")
             }
         })
     });
@@ -50,11 +60,11 @@ $(function() {
         $.ajax({
             type: "DELETE",
             url: "http://rest.learncode.academy/api/Zeke/drinks1234/" + idNumber,
-            success: function (newOrder) {
-                alert("Item Deleted")
+            success: function (order) {
+                alert("Item Deleted: " + order.name.toString())
             },
             error: function () {
-                alert("Error")
+                alert("Error at 'delete' function")
             }
         })
     });
@@ -72,12 +82,13 @@ $(function() {
             type: "PUT",
             url: "http://rest.learncode.academy/api/Zeke/drinks1234/" + idNumber,
             data: order,
-            success: function (newOrder) {
-                alert("Item Updated")
+            success: function (order) {
+                alert("Item Updated: " + order.name.toString())
             },
             error: function () {
-                alert("Error")
+                alert("Error at 'put' function")
             }
         })
     });
 });
+
